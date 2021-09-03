@@ -1,10 +1,10 @@
-const User = require("../models/user");
+const User = require("../models/builder");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports.signup = (req, res) => {
-	const { userName, email, password, dob } = req.body;
-	if (!userName || !email || !password || !dob) {
+	const { userName, email, password, dob, certificateNo } = req.body;
+	if (!userName || !email || !password || !dob || !certificateNo) {
 		return res.status(400).json({ message: "please enter all fieds" });
 	}
 	User.findOne({ email: email }).then((user) => {
@@ -19,7 +19,8 @@ module.exports.signup = (req, res) => {
 						userName: userName,
 						email: email,
 						password: hash,
-						dob: dob
+						dob: dob, 
+                        certificateNo : certificateNo
 					});
 					newUser
 						.save()
@@ -54,7 +55,7 @@ module.exports.login = (req, res) => {
 				{ id: user._id },
 				process.env.JWT_KEY,
 				{
-					expiresIn: 3600
+					/*expiresIn: 3600*/
 				},
 				(err, token) => {
 					if (err) {

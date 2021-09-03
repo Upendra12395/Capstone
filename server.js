@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const builderRouter = require('./routes/builder');
 const userRouter = require("./routes/user");
 require('dotenv').config();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 
 
 app.use("/user", userRouter);
+app.use("/builder", builderRouter);
 
 app.get('/', (req, res)=>{
     res.send("hello")
