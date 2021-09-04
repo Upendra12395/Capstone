@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const builderRouter = require('./routes/builder');
 const userRouter = require("./routes/user");
+const projectRouter = require('./routes/project');
 require('dotenv').config();
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(express.json());
 
 app.use("/user", userRouter);
 app.use("/builder", builderRouter);
+app.use('/project', projectRouter)
 
 app.get('/', (req, res)=>{
     res.send("hello")

@@ -2,20 +2,25 @@ const mongoose = require('mongoose')
 
 const builderSchema = new mongoose.Schema({
     userName: {
-        type: "string", 
+        type: String,
+        required : true 
     },
     email: {
-        type: "string",
-        unique:true
+        type: String,
+        unique:true,
+        required : true
     },
     password: {
-		type: "string",
+		type: String,
+        required : true
 	},
     dob: {
-        type:"string",
+        type: String,
+        required : true
     },
     certificateNo:{
-        type:"Number"
+        type: String,
+        required : true
     }
     
 })
