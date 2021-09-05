@@ -54,7 +54,7 @@ module.exports.login = (req, res) => {
 				{ id: user._id },
 				process.env.JWT_KEY,
 				{
-					expiresIn: 3600
+					/*expiresIn: 3600*/
 				},
 				(err, token) => {
 					if (err) {
