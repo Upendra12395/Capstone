@@ -24,7 +24,7 @@ module.exports.addProject = async (req, res) => {
             });
   };
 
-  module.exports.project = (req, res)=>{
+module.exports.project = (req, res)=>{
         Project.find()
             .select("-password")
             .then((project) => {

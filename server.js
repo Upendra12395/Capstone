@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const builderRouter = require('./routes/builder');
 const userRouter = require("./routes/user");
 const projectRouter = require('./routes/project');
+const cardRouter = require('./routes/card')
 require('dotenv').config();
 
 const app = express();
@@ -22,9 +23,10 @@ mongoose.connection.on('open', ()=>{
 app.use(express.json());
 
 
-app.use("/user", userRouter);
-app.use("/builder", builderRouter);
+app.use("/user", userRouter)
+app.use("/builder", builderRouter)
 app.use('/project', projectRouter)
+app.use('/card', cardRouter)
 
 app.get('/', (req, res)=>{
     res.send("hello")
