@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
+const cors = require('cors');
 const builderRouter = require('./routes/builder');
 const userRouter = require("./routes/user");
 const projectRouter = require('./routes/project');
@@ -7,6 +9,7 @@ const cardRouter = require('./routes/card')
 require('dotenv').config();
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 4000;
 const password = process.env.PASSWORD;
 
@@ -26,7 +29,7 @@ app.use(express.json());
 app.use("/user", userRouter)
 app.use("/builder", builderRouter)
 app.use('/project', projectRouter)
-app.use('/card', cardRouter)
+//app.use('/card', cardRouter)
 
 app.get('/', (req, res)=>{
     res.send("hello")

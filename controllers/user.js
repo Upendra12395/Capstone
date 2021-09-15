@@ -1,8 +1,10 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const bodyParser = require('body-parser')
 
 module.exports.signup = (req, res) => {
+	
 	const { userName, email, password, dob } = req.body;
 	if (!userName || !email || !password || !dob) {
 		return res.status(400).json({ message: "please enter all fieds" });

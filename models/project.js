@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
     projectName:{type: String, required: true},
     location:{type: String, required: true},
-    deccription:{type:String, required:true},
+    description:{type:String, required:true},
     expectDays:{type:Number, required:true},
     areaSqft:{type: Number, required:true},
     noOfFloor:{type: Number, required:true},
@@ -11,8 +11,7 @@ const projectSchema = new mongoose.Schema({
     image:{type:String, required:true,
         default:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg/800px-Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg"
     },
-    likes:{type:mongoose.Schema.Types.ObjectId, ref:'Builder'},
-    comment:{type:mongoose.Schema.Types.ObjectId, ref:'Builder'},
+    likes:[{type:mongoose.Schema.Types.ObjectId, ref:'Builder'}],
     userId:{type:mongoose.Schema.Types.ObjectId, ref : 'User'}
 })
 

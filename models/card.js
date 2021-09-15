@@ -11,8 +11,13 @@ const cardSchema = mongoose.Schema({
         require:true,
         default:10
     },
-    user:{
-        type:mongoose.Schema.Types.ObjectId, 
-        ref:'User'
-    }
+    // project:{
+    //     type:mongoose.Schema.Types.ObjectId, 
+    //     ref:'Project'
+    // },
+    //user:{
+    //     type:mongoose.Schema.Types.ObjectId, 
+    //     ref:'User'
+    // }
+
 })
