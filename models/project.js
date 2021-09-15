@@ -12,6 +12,7 @@ const projectSchema = new mongoose.Schema({
         default:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg/800px-Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg"
     },
     likes:[{type:mongoose.Schema.Types.ObjectId, ref:'Builder'}],
+    CommentId:[{type:mongoose.Schema.Types.ObjectId, ref:'comment'}],
     userId:{type:mongoose.Schema.Types.ObjectId, ref : 'User'}
 })
 
