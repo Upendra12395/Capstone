@@ -1,5 +1,6 @@
 const Project = require('../models/project')
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const comment = require('../models/comment');
 
 module.exports.addProject = async (req, res) => {
     const { projectName, location, description, expectDays, areaSqft, noOfFloor, expectedCost, image, likes, userId } = req.body;

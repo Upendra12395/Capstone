@@ -1,79 +1,42 @@
-const User = require("../models/builder");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const Comment = require("../models/comment");
+const Project = require("../models/project");
+const bodyParser = require('body-parser');
 
-module.exports.signup = (req, res) => {
-	const { userName, email, password, dob, certificateNo } = req.body;
-	if (!userName || !email || !password || !dob || !certificateNo) {
+
+
+module.exports.addComment = (req, res) => {
+	const { comment, projectId, builderId } = req.body;
+	if (!comment || !projectId || !builderId) {
 		return res.status(400).json({ message: "please enter all fieds" });
 	}
-	User.findOne({ email: email }).then((user) => {
-		if (user) {
-			return res.status(400).json({ message: "User already exist" });
-		} else {
-			//create salt and hash
-			bcrypt.genSalt(10, (err, salt) => {
-				bcrypt.hash(password, salt, (err, hash) => {
-					if (err) throw err;
-					const newUser = new User({
-						userName: userName,
-						email: email,
-						password: hash,
-						dob: dob, 
-                        certificateNo : certificateNo
+					const newComment = new Comment({
+						comment: comment,
+						projectId: projectId,
+						builderId: builderId
 					});
-					newUser
-						.save()
-						.then((user) => {
-							// console.log(user);
-							return res.status(201).json({ message: "User saved successfully." });
+					newComment.save()
+						.then((comment) => {
+							return res.status(201).json({ message: "Comment saved successfully." });
 						})
 						.catch((error) => {
 							return res.status(500).json({ message: error.message });
 						});
-				});
-			});
-		}
-	});
+            
 };
+module.exports.updateProject = async (req, res) => {
+    try {
+      await Project.findByIdAndUpdate(request.params.id, request.body);
+      await Project.save();
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  };
 
-module.exports.login = (req, res) => {
-	const { email, password } = req.body;
-	if (!email || !password) {
-		return res.status(400).json({ message: "Please enter all the fields." });
-	}
-	User.findOne({ email: email }).then((user) => {
-		if (!user) {
-			return res.status(400).json({ message: "User does not exist." });
-		}
-		//password validation
-		bcrypt.compare(password, user.password).then((isMatch) => {
-			if (!isMatch) {
-				return res.status(400).json({ message: "Invalid email or password." });
-			}
-			jwt.sign(
-				{ id: user._id },
-				process.env.JWT_KEY,
-				{
-					/*expiresIn: 3600*/
-				},
-				(err, token) => {
-					if (err) {
-						throw err;
-					}
-					return res
-						.status(200)
-						.json({ token: token, user: { id: user._id, name: user.name, email: user.email } }); //remove user later
-				}
-			);
-		});
-	});
-};
-module.exports.getAll = (req, res) => {
-	User.find()
+module.exports.comment = (req, res) => {
+	Comment.find()
 		.select("-password")
-		.then((users) => {
-			res.json(users);
+		.then((comments) => {
+			res.json(comments);
 		})
 		.catch((error) => {
 			return res.status(500).json({ message: error.message });
