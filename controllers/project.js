@@ -28,7 +28,7 @@ module.exports.addProject = async (req, res) => {
   };
 
 module.exports.project = (req, res)=>{
-        Project.find().populate('userId')
+        Project.find().populate('userId', 'userName')
             .select("-password")
             .then((project) => {
                 res.json(project);
