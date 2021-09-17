@@ -13,6 +13,7 @@ app.use(cors());
 const PORT = process.env.PORT || 4000;
 const password = process.env.PASSWORD;
 
+// connecting with database
 const mongooseURL = `mongodb+srv://upendraa:${password}@cluster0.mwuaz.mongodb.net/letsbuild?retryWrites=true&w=majority`;
 mongoose.connect(mongooseURL, {
     useNewUrlParser : true,

@@ -2,6 +2,7 @@ const Builder = require("../models/builder");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+//for builder regitser
 module.exports.signup = (req, res) => {
 	const { builderName, email, password, dob, certificateNo } = req.body;
 	if (!builderName || !email || !password || !dob || !certificateNo) {
@@ -37,6 +38,7 @@ module.exports.signup = (req, res) => {
 	});
 };
 
+//for builder login
 module.exports.login = (req, res) => {
 	const { email, password } = req.body;
 	if (!email || !password) {
@@ -69,6 +71,8 @@ module.exports.login = (req, res) => {
 		});
 	});
 };
+
+//to get all the builders
 module.exports.getAll = (req, res) => {
 	Builder.find()
 		.select("-password")

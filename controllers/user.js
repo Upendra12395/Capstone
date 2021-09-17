@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const bodyParser = require('body-parser')
 
-module.exports.signup = (req, res) => {
-	
+//for user register
+module.exports.signup = (req, res) => {	
 	const { userName, email, password, dob } = req.body;
 	if (!userName || !email || !password || !dob) {
 		return res.status(400).json({ message: "please enter all fieds" });
@@ -38,6 +38,7 @@ module.exports.signup = (req, res) => {
 	});
 };
 
+//for user login
 module.exports.login = (req, res) => {
 	const { email, password } = req.body;
 	if (!email || !password) {
@@ -70,6 +71,8 @@ module.exports.login = (req, res) => {
 		});
 	});
 };
+
+//to find out all users
 module.exports.getAll = (req, res) => {
 	User.find()
 		.select("-password")
