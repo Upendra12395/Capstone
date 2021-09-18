@@ -5,7 +5,7 @@ const cors = require('cors');
 const builderRouter = require('./routes/builder');
 const userRouter = require("./routes/user");
 const projectRouter = require('./routes/project');
-//onst commentRouter = require('./routes/comment')
+const commentRouter = require('./routes/comment')
 require('dotenv').config();
 
 const app = express();
@@ -31,7 +31,7 @@ app.use(express.json());
 app.use("/user", userRouter)
 app.use("/builder", builderRouter)
 app.use('/project', projectRouter)
-//app.use('/comment', commentRouter)
+app.use('/comment', commentRouter)
 
 app.get('/', (req, res)=>{
     res.send("hello")

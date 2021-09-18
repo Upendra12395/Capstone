@@ -2,9 +2,8 @@ const Comment = require("../models/comment");
 const Project = require("../models/project");
 const bodyParser = require('body-parser');
 
-
-
-module.exports.addComment = (req, res) => {
+// make a bid on a project
+module.exports.makeBid = (req, res) => {
 	const { comment, projectId, builderId } = req.body;
 	if (!comment || !projectId || !builderId) {
 		return res.status(400).json({ message: "please enter all fieds" });
@@ -23,6 +22,8 @@ module.exports.addComment = (req, res) => {
 						});
             
 };
+
+
 module.exports.updateProject = async (req, res) => {
     try {
       await Project.findByIdAndUpdate(request.params.id, request.body);
@@ -32,8 +33,21 @@ module.exports.updateProject = async (req, res) => {
     }
   };
 
-module.exports.comment = (req, res) => {
+// Show all requests
+module.exports.requests = (req, res) => {
 	Comment.find()
+		.select("-password")
+		.then((comments) => {
+			res.json(comments);
+		})
+		.catch((error) => {
+			return res.status(500).json({ message: error.message });
+		});
+};
+
+// Show all requests on a project
+module.exports.requests = (req, res) => {
+	Comment.find({projectId:req.params.id}).populate('builderId', 'builderName')
 		.select("-password")
 		.then((comments) => {
 			res.json(comments);
