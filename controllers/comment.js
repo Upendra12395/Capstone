@@ -34,7 +34,7 @@ module.exports.updateProject = async (req, res) => {
   };
 
 // Show all requests
-module.exports.requests = (req, res) => {
+module.exports.comment = (req, res) => {
 	Comment.find()
 		.select("-password")
 		.then((comments) => {
@@ -46,7 +46,7 @@ module.exports.requests = (req, res) => {
 };
 
 // Show all requests on a project
-module.exports.requests = (req, res) => {
+module.exports.comment = (req, res) => {
 	Comment.find({projectId:req.params.id}).populate('builderId', 'builderName')
 		.select("-password")
 		.then((comments) => {

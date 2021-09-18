@@ -14,6 +14,7 @@ const projectSchema = new mongoose.Schema({
     likes:[{type:mongoose.Schema.Types.ObjectId, ref:'Builder'}],
     //CommentId:[{type:mongoose.Schema.Types.ObjectId, ref:'comment'}],
     userId:{type:mongoose.Schema.Types.ObjectId, ref : 'User'}
-})
+}, 
+{timestamps:true})
 
 module.exports = mongoose.model('Project', projectSchema)
