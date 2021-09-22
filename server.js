@@ -10,6 +10,8 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors());
+const http = require('http').createServer(app);
+
 const PORT = process.env.PORT || 4000;
 const password = process.env.PASSWORD;
 
@@ -33,9 +35,27 @@ app.use("/builder", builderRouter)
 app.use('/project', projectRouter)
 //app.use('/comment', commentRouter)
 
+// chat section
+// app.use(express.static(__dirname + '/public'))
+
+// app.get('/chat', (req, res) => {
+//     res.sendFile(__dirname + '/index.html')
+// })
+
 app.get('/', (req, res)=>{
     res.send("hello")
 });
+
+// Socket 
+// const io = require('socket.io')(http)
+
+// io.on('connection', (socket) => {
+//     console.log('io Connected...')
+//     socket.on('message', (msg) => {
+//         socket.broadcast.emit('message', msg)
+//     })
+
+// })
 
 app.listen(PORT, ()=>{
     console.log(`app running on port ${PORT}`)
