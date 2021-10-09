@@ -6,7 +6,7 @@ const comment = require('../models/comment');
 module.exports.addProject = async (req, res) => {
     const { projectName, location, description, expectDays, areaSqft, noOfFloor, expectedCost, image, likes, userId } = req.body;
 	if (!projectName || !location || !description || !expectDays || !areaSqft || !noOfFloor || !expectedCost) {
-		return res.status(400).json({ message: "please enter all fieds" });
+		return res.status(400).json({ message: "please enter all fields" });
 	}
         const newProject = new Project({
             projectName: projectName,
@@ -31,7 +31,7 @@ module.exports.addProject = async (req, res) => {
 //Find all the project for builder
 module.exports.project = (req, res)=>{
         Project.find().populate('userId', 'userName')
-            .select("-password")
+            //.select("-password")
             .then((project) => {
                 res.json(project);
             })

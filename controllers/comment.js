@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 module.exports.makeBid = (req, res) => {
 	const { comment, projectId, builderId } = req.body;
 	if (!comment || !projectId || !builderId) {
-		return res.status(400).json({ message: "please enter all fieds" });
+		return res.status(400).json({ message: "please enter all fields" });
 	}
 					const newComment = new Comment({
 						comment: comment,

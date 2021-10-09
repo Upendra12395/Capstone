@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 module.exports.signup = (req, res) => {	
 	const { userName, email, password, dob } = req.body;
 	if (!userName || !email || !password || !dob) {
-		return res.status(400).json({ message: "please enter all fieds" });
+		return res.status(400).json({ message: "please enter all fields" });
 	}
 	User.findOne({ email: email }).then((user) => {
 		if (user) {
@@ -75,7 +75,7 @@ module.exports.login = (req, res) => {
 //to find out all users
 module.exports.getAll = (req, res) => {
 	User.find()
-		.select("-password")
+		//.select("-password")
 		.then((users) => {
 			res.json(users);
 		})

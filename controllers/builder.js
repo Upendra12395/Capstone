@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 module.exports.signup = (req, res) => {
 	const { builderName, email, password, dob, certificateNo } = req.body;
 	if (!builderName || !email || !password || !dob || !certificateNo) {
-		return res.status(400).json({ message: "please enter all fieds" });
+		return res.status(400).json({ message: "please enter all fields" });
 	}
 	Builder.findOne({ email: email }).then((builder) => {
 		if (builder) {
