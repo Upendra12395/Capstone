@@ -8,7 +8,8 @@ const builderSchema = new mongoose.Schema({
     gender:{type:String},
     about:{type: String},
     certificateNo:{type: String, required : true},
-    commentId:[{type:mongoose.Schema.Types.ObjectId, ref:'Comment'}]
+    comments:[{type:mongoose.Schema.Types.ObjectId, ref:'Comment'}],
+    likes: [{type:mongoose.Schema.Types.ObjectId, ref : 'Project'}]
     
 })
 

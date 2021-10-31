@@ -1,20 +1,30 @@
 const Comment = require("../models/comment");
 const Project = require("../models/project");
 const bodyParser = require('body-parser');
+const Builder = require('../models/builder')
 
 // make a bid on a project
 module.exports.makeBid = (req, res) => {
 	const { comment, projectId, builderId } = req.body;
-	if (!comment || !projectId || !builderId) {
+	if (!comment || !projectId) {
 		return res.status(400).json({ message: "please enter all fields" });
 	}
+	const id = req.builder._id
 					const newComment = new Comment({
 						comment: comment,
 						projectId: projectId,
-						builderId: builderId
+						builderId: id
 					});
 					newComment.save()
 						.then((comment) => {
+							Builder.findById(id).then((builder)=>{
+								builder.comments.push(comment._id)
+								builder.save()
+							})
+							Project.findById(projectId).then((project)=>{
+								project.comments.push(comment._id)
+								project.save()
+							})
 							return res.status(201).json({ message: "Comment saved successfully." });
 						})
 						.catch((error) => {

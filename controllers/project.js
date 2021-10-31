@@ -2,6 +2,7 @@ const Project = require('../models/project')
 const bodyParser = require('body-parser');
 const comment = require('../models/comment');
 const User = require('../models/user')
+const Builder = require('../models/builder');
 
 //insert a project
 module.exports.addProject = async (req, res) => {
@@ -21,7 +22,7 @@ module.exports.addProject = async (req, res) => {
             status : status,
             image : image,
             likes: likes,
-            userId: id
+            user: id
         });
         newProject.save().then((project) => {
                 User.findById(id).then((user)=>{
@@ -61,10 +62,14 @@ module.exports.myProject = (req, res)=>{
 
 module.exports.addLike = (req, res) =>{
     const projectId = req.params.id
-    const userId = req.user._id
+    const builderId = req.builder._id
     Project.findById(projectId).then((project)=>{
-        project.likes.push(userId)
+        project.likes.push(builderId)
         project.save()
+        Builder.findById(builderId).then((builder=>{
+            builder.likes.push(projectId)
+            builder.save()
+        }))
         res.status(200).json({message : "Liked"})
     })
     .catch(err =>{

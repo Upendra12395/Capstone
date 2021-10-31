@@ -8,12 +8,13 @@ const projectSchema = new mongoose.Schema({
     areaSqft:{type: Number, required:true},
     noOfFloor:{type: Number, required:true},
     expectedCost:{type: Number, required: true},
+    status : { type : String, required},
     image:{type:String, required:true,
         default:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg/800px-Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg"
     },
     likes:[{type:mongoose.Schema.Types.ObjectId, ref:'Builder'}],
-    //CommentId:[{type:mongoose.Schema.Types.ObjectId, ref:'comment'}],
-    userId:{type:mongoose.Schema.Types.ObjectId, ref : 'User'}
+    Comments:[{type:mongoose.Schema.Types.ObjectId, ref:'comment'}],
+    user:{type:mongoose.Schema.Types.ObjectId, ref : 'User'}
 }, 
 {timestamps:true})
 
