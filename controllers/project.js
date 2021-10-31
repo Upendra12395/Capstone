@@ -1,10 +1,11 @@
 const Project = require('../models/project')
 const bodyParser = require('body-parser');
 const comment = require('../models/comment');
+const User = require('../models/user')
 
 //insert a project
 module.exports.addProject = async (req, res) => {
-    const { projectName, location, description, expectDays, areaSqft, noOfFloor, expectedCost, image, likes, userId } = req.body;
+    const { projectName, location, description, expectDays, areaSqft, noOfFloor, expectedCost, status, image, likes, userId } = req.body;
 	const id = req.user._id
     if (!projectName || !location || !description || !expectDays || !areaSqft || !noOfFloor || !expectedCost) {
 		return res.status(400).json({ message: "please enter all fields" });
@@ -17,12 +18,17 @@ module.exports.addProject = async (req, res) => {
             areaSqft : areaSqft,
             noOfFloor : noOfFloor,
             expectedCost : expectedCost,
+            status : status,
             image : image,
             likes: likes,
             userId: id
         });
         newProject.save().then((project) => {
-                return res.status(201).json({ message: "Project saved successfully." });
+                User.findById(id).then((user)=>{
+                    user.project.push(project._id)
+                    user.save()
+                })
+                return res.status(200).json({ message: "Project saved successfully." });
             })
             .catch((error) => {
                 return res.status(500).json({ message: error.message });
@@ -34,7 +40,7 @@ module.exports.project = (req, res)=>{
         Project.find({status : pending}).populate('userId', 'userName')
             //.select("-password")
             .then((project) => {
-                res.json(project);
+                res.status(200).json(project);
             })
             .catch((error) => {
                 return res.status(500).json({ message: error.message });
@@ -46,9 +52,22 @@ module.exports.myProject = (req, res)=>{
         const pId = req.user._id
         Project.find({userId : pId})
         .then((project) => {
-            res.json(project);
+            res.status(200).json(project);
         })
         .catch((error) => {
             return res.status(500).json({ message: error.message });
         });
+}
+
+module.exports.addLike = (req, res) =>{
+    const projectId = req.params.id
+    const userId = req.user._id
+    Project.findById(projectId).then((project)=>{
+        project.likes.push(userId)
+        project.save()
+        res.status(200).json({message : "Liked"})
+    })
+    .catch(err =>{
+        res.status(500).json({message : err.message})
+    })
 }
