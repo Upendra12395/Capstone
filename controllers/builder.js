@@ -75,7 +75,6 @@ module.exports.login = (req, res) => {
 //to get all the builders
 module.exports.getAll = (req, res) => {
 	Builder.find()
-		.select("-password")
 		.then((builders) => {
 			res.json(builders);
 		})

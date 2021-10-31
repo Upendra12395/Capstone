@@ -17,11 +17,11 @@ module.exports.makeBid = (req, res) => {
 					});
 					newComment.save()
 						.then((comment) => {
-							Builder.findById(id).then((builder)=>{
+							Builder.findById(id).then((builder)=>{ // saving comment id in builder collection
 								builder.comments.push(comment._id)
 								builder.save()
 							})
-							Project.findById(projectId).then((project)=>{
+							Project.findById(projectId).then((project)=>{ // saving comment id in project collection
 								project.comments.push(comment._id)
 								project.save()
 							})

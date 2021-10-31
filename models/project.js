@@ -8,7 +8,7 @@ const projectSchema = new mongoose.Schema({
     areaSqft:{type: Number, required:true},
     noOfFloor:{type: Number, required:true},
     expectedCost:{type: Number, required: true},
-    status : { type : String, required},
+    status : { type : String, default : "pending"},
     image:{type:String, required:true,
         default:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg/800px-Green_Building_-_MIT%2C_Cambridge%2C_MA_-_DSC05589.jpg"
     },

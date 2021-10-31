@@ -10,6 +10,6 @@ const userSchema = new mongoose.Schema({
     occupation:{type: String},
     project:[{type:mongoose.Schema.Types.ObjectId, ref:'Project'}]
     
-})
+},{timestamps:true})
 
 module.exports = mongoose.model('User', userSchema);
