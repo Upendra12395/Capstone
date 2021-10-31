@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     gender:{type: String},
     about:{type: String},
     occupation:{type: String},
-    projectId:[{type:mongoose.Schema.Types.ObjectId, ref:'Project'}]
+    project:[{type:mongoose.Schema.Types.ObjectId, ref:'Project'}]
     
 })
 

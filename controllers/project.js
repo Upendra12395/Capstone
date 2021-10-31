@@ -5,7 +5,8 @@ const comment = require('../models/comment');
 //insert a project
 module.exports.addProject = async (req, res) => {
     const { projectName, location, description, expectDays, areaSqft, noOfFloor, expectedCost, image, likes, userId } = req.body;
-	if (!projectName || !location || !description || !expectDays || !areaSqft || !noOfFloor || !expectedCost) {
+	const id = req.user._id
+    if (!projectName || !location || !description || !expectDays || !areaSqft || !noOfFloor || !expectedCost) {
 		return res.status(400).json({ message: "please enter all fields" });
 	}
         const newProject = new Project({
@@ -18,7 +19,7 @@ module.exports.addProject = async (req, res) => {
             expectedCost : expectedCost,
             image : image,
             likes: likes,
-            userId: userId
+            userId: id
         });
         newProject.save().then((project) => {
                 return res.status(201).json({ message: "Project saved successfully." });
@@ -30,7 +31,7 @@ module.exports.addProject = async (req, res) => {
 
 //Find all the project for builder
 module.exports.project = (req, res)=>{
-        Project.find().populate('userId', 'userName')
+        Project.find({status : pending}).populate('userId', 'userName')
             //.select("-password")
             .then((project) => {
                 res.json(project);
@@ -42,7 +43,7 @@ module.exports.project = (req, res)=>{
 
 //find the project of specific user
 module.exports.myProject = (req, res)=>{
-        const pId = req.params.id
+        const pId = req.user._id
         Project.find({userId : pId})
         .then((project) => {
             res.json(project);

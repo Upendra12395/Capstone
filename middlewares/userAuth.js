@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const Owner = require("../models/user")
+const User = require("../models/user")
 
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
@@ -13,8 +13,8 @@ module.exports = (req, res, next) => {
                 return res.status(401).json({ error: error });
             } else {
                 const _id = payload.id;
-                Owner.findById(_id).then((ownerData) => {
-                    req.owner = ownerData;
+                User.findById(_id).then((userData) => {
+                    req.user = userData;
                     next();
                 });
 
