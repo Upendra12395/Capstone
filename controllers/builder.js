@@ -82,3 +82,14 @@ module.exports.getAll = (req, res) => {
 			return res.status(500).json({ message: error.message });
 		});
 };
+
+module.exports.updateProfile = (req, res) =>{
+	const builderId = req.user._id
+	Builder.findByIdAndUpdate(builderId, req.body, {useModifyAndUpdate : false})
+	.then(buiilder=>{
+		res.status(200).json({message : 'Profile Updated successfully'})
+	})
+	.catch(err =>{
+		res.status(500).json({message : err.message})
+	})
+}

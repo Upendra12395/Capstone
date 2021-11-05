@@ -51,7 +51,7 @@ module.exports.project = (req, res)=>{
 //find the project of specific user
 module.exports.myProject = (req, res)=>{
         const pId = req.user._id
-        Project.find({userId : pId})
+        Project.find({user : pId})
         .then((project) => {
             res.status(200).json(project);
         })
