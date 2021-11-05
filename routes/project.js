@@ -11,5 +11,6 @@ router.get('/forBuilder', builderAuth, projectController.project) // route to fi
 router.get('/forUser', userAuth, projectController.myProject) //route to show user projects
 router.post('/like/:id', builderAuth, projectController.addLike)
 router.get('/getProjectByLocation/:id', builderAuth, projectController.getProjectByLocation)
+router.get('/getProjectSortedByPostedDate', builderAuth, projectController.getProjectSortedByPostedDate)
 
 module.exports = router

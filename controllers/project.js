@@ -91,3 +91,13 @@ module.exports.getProjectByLocation = (req, res)=>{
         res.status(500).json({message : err.message})
     })
 }
+
+module.exports.getProjectSortedByPostedDate = (req, res) =>{
+    Project.find().sort({ createdAt: 1 })
+    .then(project =>{
+        res.status(200).json(project)
+    })
+    .catch(err =>{
+        res.status(500).json({message : err.message})
+    })
+}
