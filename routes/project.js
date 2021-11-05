@@ -10,5 +10,6 @@ router.post('/addProject', userAuth, projectController.addProject) //route to ad
 router.get('/forBuilder', builderAuth, projectController.project) // route to find all projects for builder
 router.get('/forUser', userAuth, projectController.myProject) //route to show user projects
 router.post('/like/:id', builderAuth, projectController.addLike)
+router.get('/getProjectByLocation/:id', builderAuth, projectController.getProjectByLocation)
 
 module.exports = router

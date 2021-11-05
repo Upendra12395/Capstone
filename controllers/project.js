@@ -76,3 +76,18 @@ module.exports.addLike = (req, res) =>{
         res.status(500).json({message : err.message})
     })
 }
+
+module.exports.getProjectByLocation = (req, res)=>{
+    const location = req.params.id
+    Project.find({location : location})
+    .then(project =>{
+        if(project){
+            res.status(200).json(project)
+        }else{
+            res.status(404).json({message : 'Project not available for this location'})
+        }
+    })
+    .catch(err =>{
+        res.status(500).json({message : err.message})
+    })
+}
