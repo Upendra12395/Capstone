@@ -38,7 +38,7 @@ module.exports.addProject = async (req, res) => {
 
 //Find all the project for builder
 module.exports.project = (req, res)=>{
-        Project.find({status : "pending"})//.populate('userId', 'userName')
+        Project.find({status : "pending"}).populate('user', 'userName')
             //.select("-password")
             .then((project) => {
                 res.status(200).json(project);
@@ -51,7 +51,7 @@ module.exports.project = (req, res)=>{
 //find the project of specific user
 module.exports.myProject = (req, res)=>{
         const pId = req.user._id
-        Project.find({user : pId})
+        Project.find({user : pId}).populate('user', 'userName')
         .then((project) => {
             res.status(200).json(project);
         })

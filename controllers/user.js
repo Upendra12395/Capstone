@@ -86,7 +86,7 @@ module.exports.getAll = (req, res) => {
 
 module.exports.updateProfile = (req, res)=>{
 	const userId = req.user._id
-	Builder.findByIdAndUpdate(userId, req.body, {useModifyAndUpdate : false})
+	Builder.findByIdAndUpdate(userId, req.body, {useFindAndModify : false})
 	.then(user=>{
 		res.status(200).json({message : 'Profile Updated successfully'})
 	})

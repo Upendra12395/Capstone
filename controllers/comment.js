@@ -14,8 +14,8 @@ module.exports.makeBid = async (req, res) => {
 	const projectId = req.params.id
 	const newComment = new Comment({
 		comment: comment,
-		projectId: projectId,
-		builderId: id
+		project: projectId,
+		builder: id
 	});
 	newComment.save()
 		.then((comment) => {
@@ -38,17 +38,8 @@ module.exports.makeBid = async (req, res) => {
 };
 
 
-module.exports.updateProject = async (req, res) => {
-	try {
-		await Project.findByIdAndUpdate(request.params.id, request.body);
-		await Project.save();
-	} catch (error) {
-		response.status(500).send(error);
-	}
-};
-
 // Show all requests
-module.exports.comment = (req, res) => {
+module.exports.allComment = (req, res) => {
 	Comment.find()
 		.select("-password")
 		.then((comments) => {
@@ -61,7 +52,7 @@ module.exports.comment = (req, res) => {
 
 // Show all requests on a project
 module.exports.comment = (req, res) => {
-	Comment.find({ projectId: req.params.id }).populate('builderId', 'builderName')
+	Comment.find({ project: req.params.id }).populate('builder', 'builderName')
 		.select("-password")
 		.then((comments) => {
 			res.json(comments);

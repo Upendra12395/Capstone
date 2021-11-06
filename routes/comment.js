@@ -5,8 +5,7 @@ const builderAuth = require('../middlewares/builderAuth')
 const userAuth = require('../middlewares/userAuth')
 
 router.post('/addComment/:id', builderAuth, commentController.makeBid) // make a bid for any project
-router.get('/', userAuth, commentController.comment) // show all request
-router.get('/:id', commentController.comment) // show all request for a Project
-router.patch('/:id', commentController.updateProject)
+router.get('/', userAuth, commentController.allComment) // show all request
+router.get('/:id', userAuth, commentController.comment) // show all request for a Project
 
 module.exports = router
