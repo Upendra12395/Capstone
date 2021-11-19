@@ -47,7 +47,7 @@ app.get('/', (req, res)=>{
 });
 
 // Socket 
-const io = require('socket.io')(http)
+const io = require('socket.io')(http, {cors : {origin : "*"}})
 
 io.on('connection', (socket) => {
     console.log('io Connected...')
