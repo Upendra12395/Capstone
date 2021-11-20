@@ -25,8 +25,12 @@ mongoose.connect(mongooseURL, {
 });
 
 mongoose.Promise = global.Promise;
-mongoose.connection.on('open', ()=>{
+mongoose.connection.once('open', ()=>{
     console.log("connected")
+});
+
+mongoose.connection.on("error", (error) => {
+    console.log("Error connecting database..."), error;
 });
 
 
@@ -47,7 +51,7 @@ app.get('/', (req, res)=>{
 });
 
 // Socket 
-const io = require('socket.io')(http, {cors : {origin : "*"}})
+const io = require('socket.io')(http)
 
 io.on('connection', (socket) => {
     console.log('io Connected...')
