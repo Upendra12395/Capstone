@@ -5,7 +5,7 @@ const userAuth = require('../middlewares/userAuth');
 
 router.post('/signup', userController.signup);
 router.post('/login', userController.login);
-router.get('/', userAuth, userController.getAll);
+router.get('/',  userController.getAll);
 router.patch('/updateProfile', userAuth, userController.updateProfile)
 
 
