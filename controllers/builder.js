@@ -93,3 +93,14 @@ module.exports.updateProfile = (req, res) =>{
 		res.status(500).json({message : err.message})
 	})
 }
+
+module.exports.viewProfile = (req, res) =>{
+	const builderId = req.user._id
+	Builder.findById(builderId)
+	.then((builder)=>{
+		res.status(200).json(builder)
+	})
+	.catch(err =>{
+		res.status(500).json({message : err.message})
+	})
+}

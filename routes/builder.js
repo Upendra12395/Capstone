@@ -8,6 +8,7 @@ router.post('/signup', builderController.signup); // route to register builder
 router.post('/login', builderController.login); // route to login for builder
 router.get('/', userAuth, builderController.getAll); // route to list out all builders
 router.patch('/updateProfile', builderAuth, builderController.updateProfile)
+router.get('/viewProfile', builderAuth, builderController.viewProfile)
 
 
 
